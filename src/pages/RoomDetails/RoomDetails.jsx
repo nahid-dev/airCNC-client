@@ -7,7 +7,7 @@ import { useLoaderData } from "react-router-dom";
 
 const RoomDetails = () => {
   const roomData = useLoaderData();
-  // console.log(data);
+  console.log(roomData);
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">

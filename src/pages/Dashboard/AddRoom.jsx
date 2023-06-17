@@ -25,7 +25,7 @@ const AddRoom = () => {
     const title = event.target.title.value;
     const from = dates.startDate;
     const to = dates.endDate;
-    const price = event.target.price.value;
+    const price = parseFloat(event.target.price.value);
     const guests = event.target.total_guest.value;
     const bedrooms = event.target.bedrooms.value;
     const bathrooms = event.target.bathrooms.value;

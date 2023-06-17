@@ -21,22 +21,13 @@ const RoomReservation = ({ roomData }) => {
       formatDistance(new Date(roomData.to), new Date(roomData.from)).split(
         " "
       )[0]
-    ) * roomData.price;
+    ) * parseFloat(roomData.price);
 
   const [value, setValue] = useState({
     startDate: new Date(roomData?.from),
     endDate: new Date(roomData?.to),
     key: "selection",
   });
-
-  // const [startDate, setStartDate] = useState(new Date(roomData?.from));
-  // const [endDate, setEndDate] = useState(new Date(roomData?.to));
-
-  // const onChanche = (dates) => {
-  //   const [start, end] = dates;
-  //   setStartDate(start);
-  //   setEndDate(end);
-  // };
 
   const [bookingInfo, setBookingInfo] = useState({
     guest: {
@@ -54,7 +45,7 @@ const RoomReservation = ({ roomData }) => {
     image: roomData.image,
   });
 
-  console.log(bookingInfo);
+  // console.log(bookingInfo);
 
   const handleSelect = (ranges) => {
     setValue({ ...value });
