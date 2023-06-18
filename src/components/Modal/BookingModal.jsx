@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { Elements } from "@stripe/react-stripe-js";
 import { format } from "date-fns";
 import { Fragment } from "react";
 
@@ -62,6 +63,9 @@ const BookingModal = ({ modalHandler, closeModal, isOpen, bookingInfo }) => {
                     Price: $ {bookingInfo.price}
                   </p>
                 </div>
+
+                {/* Checkout Form */}
+                <Elements></Elements>
                 <hr className="mt-8 " />
                 <div className="flex mt-2 justify-around">
                   <button

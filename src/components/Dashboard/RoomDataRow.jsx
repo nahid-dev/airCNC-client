@@ -5,7 +5,7 @@ import { updateStatus } from "../../API/booking";
 import { toast } from "react-hot-toast";
 import { deleteRoom } from "../../API/rooms";
 
-const RoomDataRow = ({ room, fetchRooms }) => {
+const RoomDataRow = ({ room, refetch }) => {
   let [isOpen, setIsOpen] = useState(false);
   function closeModal() {
     setIsOpen(false);
@@ -15,9 +15,8 @@ const RoomDataRow = ({ room, fetchRooms }) => {
     // console.log('delete using id');
     deleteRoom(id).then((data) => {
       updateStatus(room._id, false).then((data) => {
-        console.log(data);
-        fetchRooms();
         toast.success("booking delete");
+        refetch();
         closeModal();
       });
     });

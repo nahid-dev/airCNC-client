@@ -1,22 +1,36 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { getRooms } from "../../API/rooms";
+// import { getRooms } from "../../API/rooms";
 import RoomDataRow from "../../components/Dashboard/RoomDataRow";
 import EmptyState from "../../components/Shared/EmptyState/EmptyState";
+import { useQuery } from "react-query";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const MyListings = () => {
-  const { user } = useContext(AuthContext);
-  const [rooms, setRooms] = useState();
+  const { user, loading } = useContext(AuthContext);
+  // const [rooms, setRooms] = useState();
+  const [axiosSecure] = useAxiosSecure();
 
-  const fetchRooms = () =>
-    getRooms(user?.email).then((data) => {
-      //   console.log(data);
-      setRooms(data);
-    });
+  // const fetchRooms = () =>
+  //   getRooms(user?.email).then((data) => {
+  //     //   console.log(data);
+  //     setRooms(data);
+  //   });
 
-  useEffect(() => {
-    fetchRooms();
-  }, [user]);
+  // useEffect(() => {
+  //   fetchRooms();
+  // }, [user]);
+
+  // Queries
+  const { data: rooms = [], refetch } = useQuery({
+    queryKey: ["rooms", user?.email],
+    enabled: !loading,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/rooms/${user?.email}`);
+      console.log("res from axios", res.data);
+      return res.data;
+    },
+  });
   return (
     <>
       {rooms && Array.isArray(rooms) && rooms.length > 0 ? (
@@ -77,7 +91,7 @@ const MyListings = () => {
                         <RoomDataRow
                           key={room._id}
                           room={room}
-                          fetchRooms={fetchRooms}
+                          refetch={refetch}
                         ></RoomDataRow>
                       ))}
                   </tbody>
