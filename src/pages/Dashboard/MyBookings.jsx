@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { getBookings } from "../../API/booking";
 import TableRow from "./TableRow";
+import EmptyState from "../../components/Shared/EmptyState/EmptyState";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -80,7 +81,11 @@ const MyBookings = () => {
           </div>
         </div>
       ) : (
-        "No Data found"
+        <EmptyState
+          message={"You did not book any room yet"}
+          address={"/"}
+          label={"Browse rooms"}
+        ></EmptyState>
       )}
     </>
   );
